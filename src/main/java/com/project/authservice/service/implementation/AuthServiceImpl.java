@@ -108,6 +108,15 @@ public class AuthServiceImpl implements AuthService {
         Session session=sessionRepository.findByTokenAndUser_Id(token,userId);
         if(session!=null)
         {
+            Date currentTime=new Date(System.currentTimeMillis());
+            if(!session.getIpAddress().equals(ipAddress))
+            {
+                return Optional.of(SessionStatus.INVALID);
+            }
+            if(session.getExpiringAt().compareTo(currentTime)<=0)
+            {
+                return Optional.of(SessionStatus.EXPIRED);
+            }
             return Optional.of(session.getStatus());
         }
         return Optional.of(SessionStatus.INVALID);
