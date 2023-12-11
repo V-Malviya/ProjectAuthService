@@ -14,14 +14,17 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class AuthSecurityConfig {
-    @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
-        http.formLogin(withDefaults());
-        http.httpBasic(withDefaults());
-        return http.build();
-    }
+
+    /*
+    * commenting this bean in order to avoid conflict with OauthConfig*/
+//    @Bean
+//    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf(AbstractHttpConfigurer::disable);
+//        http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+//        http.formLogin(withDefaults());
+//        http.httpBasic(withDefaults());
+//        return http.build();
+//    }
     @Bean
     PasswordEncoder passwordEncoder()
     {
